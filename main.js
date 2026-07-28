@@ -135,6 +135,10 @@ function playerPlays() {
     const column = parseInt(i / 3);
     if (board[column][row] === "") {
       buttonCell.addEventListener("click", (e) => {
+        // Ignora el clic si la casilla ya fue jugada (evita múltiples clics)
+        if (board[column][row] !== "") {
+          return;
+        }
         board[column][row] = "O";
         buttonCell.textContent = board[column][row];
         turn = 1;
@@ -147,7 +151,6 @@ function playerPlays() {
     }
   });
 }
-
 function checkIfWinner() {
   const PCWon = [
     board[0][0] === "X" && board[1][1] === "X" && board[2][2] === "X",
