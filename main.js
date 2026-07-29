@@ -79,14 +79,22 @@ function PCPlaysV2() {
     turn = 0;
     renderPlayer();
     renderBoard();
-    const won = checkIfWinner();
-    if (won === "none") {
-      pcSolutions = [];
-      playerPlays();
+const won = checkIfWinner();
+
+if (won === "none") {
+
+    if (checkIfDraw()) {
+        alert("¡La partida terminó en empate!");
+        return;
     }
-  } else {
+
+    pcSolutions = [];
+    playerPlays();
+}
+
+} else {
     console.log("Empate...");
-  }
+}
 }
 
 function processNode(root, nturn, level) {
@@ -185,6 +193,16 @@ function checkIfWinner() {
     return "playerwon";
 }
   return "none";
+}
+function checkIfDraw() {
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[i][j] === "") {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 function checkIfPCWinner(arr) {
   const PCWon = [
