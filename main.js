@@ -15,7 +15,7 @@ let board = [
   ["", "", ""],
 ];
 
-let turn = 0; // 0 = user, 1 = pc
+let turn = 0; // 0 = Jugador 1 (Usuario), 1 = Jugador 2 (PC)
 let gameOver = false;
 
 function renderBoard() {
@@ -50,7 +50,10 @@ function startGame() {
   renderPlayer();
 
   if (turn === 1) {
-    PCPlaysV2();
+    // Si inicia la PC, le aplicamos el cold down inicial
+    setTimeout(() => {
+      PCPlaysV2();
+    }, 800);
   }
 }
 
@@ -62,7 +65,8 @@ function showMessage(message) {
 
 function renderPlayer() {
   if (!gameOver) {
-    document.querySelector("#player").textContent = `${turn === 0 ? "Player turn" : "PC turn"}`;
+    document.querySelector("#player").textContent = 
+      turn === 0 ? "Turno: Jugador 1 (O)" : "Turno: Jugador 2 (PC - X)";
   }
 }
 
@@ -206,7 +210,11 @@ function playerPlays() {
             showMessage("¡La partida terminó en empate!");
             return;
           }
-          PCPlaysV2();
+          
+          // COLD DOWN DE LA IA: Esperamos 800ms antes de que ejecute su jugada
+          setTimeout(() => {
+            PCPlaysV2();
+          }, 800);
         }
       });
     }
@@ -215,11 +223,11 @@ function playerPlays() {
 
 function checkIfWinner() {
   if (checkIfPCWinner(board)) {
-    showMessage("🏆 La PC ha ganado");
+    showMessage("🏆 ¡Jugador 2 (PC) ha ganado el juego!");
     return "pcwon";
   }
   if (checkIfPlayerWinner(board)) {
-    showMessage("🏆 El jugador ha ganado");
+    showMessage("🏆 ¡Felicidades! Jugador 1 (Tú) ha ganado");
     return "playerwon";
   }
   return "none";
@@ -276,7 +284,6 @@ function getRoot(node) {
   return n;
 }
 
-// FUNCIONALIDAD DEL BOTÓN REINICIAR:
 // Vinculamos el botón HTML con la función startGame
 document.querySelector("#reset-btn").addEventListener("click", () => {
   startGame();
