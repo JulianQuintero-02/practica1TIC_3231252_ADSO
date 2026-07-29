@@ -91,8 +91,9 @@ function PCPlaysV2() {
 }
 
 function processNode(root, nturn, level) {
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length; j++) {
+  //Controlar correctamente el arreglo bidimensional del tablero
+ for (let i = 0; i < root.value.length; i++) {
+  for (let j = 0; j < root.value[i].length; j++) {
       if (root.value[i][j] === "") {
         root.children.push(createChild(root, i, j, nturn, level));
       }
@@ -135,10 +136,6 @@ function playerPlays() {
     const column = parseInt(i / 3);
     if (board[column][row] === "") {
       buttonCell.addEventListener("click", (e) => {
-        // Ignora el clic si la casilla ya fue jugada (evita múltiples clics)
-        if (board[column][row] !== "") {
-          return;
-        }
         board[column][row] = "O";
         buttonCell.textContent = board[column][row];
         turn = 1;
@@ -151,6 +148,7 @@ function playerPlays() {
     }
   });
 }
+
 function checkIfWinner() {
   const PCWon = [
     board[0][0] === "X" && board[1][1] === "X" && board[2][2] === "X",
