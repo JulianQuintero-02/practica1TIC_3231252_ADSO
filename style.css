@@ -1,18 +1,88 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4; /* Un fondo gris claro para que resalte el juego */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#player {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .board {
   display: flex;
   flex-direction: column;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+
 .row {
   display: flex;
 }
+
 .cell {
   width: 100px;
   height: 100px;
   border: solid 1px black;
   font-size: 38px;
   font-weight: bold;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.1s ease, transform 0.05s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- EFECTOS PARA LAS CELDAS --- */
+
+/* Cuando pasas el mouse por encima de una celda */
+.cell:hover {
+  background-color: #f0f0f0;
+}
+
+/* EFECTO CUANDO EL USUARIO LE DA CLICK (Mantiene presionado) */
+.cell:active {
+  background-color: #ddd;
+  transform: scale(0.96); /* Hace un pequeño efecto de hundido */
+}
+
+
+/* --- ESTILOS PARA EL BOTÓN DE REINICIO --- */
+
+#controls {
+  margin-top: 25px;
+}
+
+#reset-btn {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #4CAF50; /* Verde */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+/* Cuando pasas el mouse por encima del botón */
+#reset-btn:hover {
+  background-color: #45a049; /* Verde más oscuro */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* EFECTO CUANDO EL USUARIO LE DA CLICK AL BOTÓN */
+#reset-btn:active {
+  background-color: #3e8e41;
+  transform: scale(0.98); /* Se hunde ligeramente */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
