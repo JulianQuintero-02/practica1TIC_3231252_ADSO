@@ -43,9 +43,8 @@ function startGame() {
 }
 
 function renderPlayer() {
-  document.querySelector("#player").textContent = `${
-    turn === 0 ? "Player turn" : "PC turn"
-  }`;
+  document.querySelector("#player").textContent = `${turn === 0 ? "Player turn" : "PC turn"
+    }`;
 }
 
 function PCPlays() {
@@ -78,8 +77,8 @@ function PCPlaysV2() {
     board = JSON.parse(JSON.stringify(move.value));
     console.log({ board });
     turn = 0;
-    renderBoard();
     renderPlayer();
+    renderBoard();
     const won = checkIfWinner();
     if (won === "none") {
       pcSolutions = [];
@@ -92,8 +91,8 @@ function PCPlaysV2() {
 
 function processNode(root, nturn, level) {
   //Controlar correctamente el arreglo bidimensional del tablero
- for (let i = 0; i < root.value.length; i++) {
-  for (let j = 0; j < root.value[i].length; j++) {
+  for (let i = 0; i < root.value.length; i++) {
+    for (let j = 0; j < root.value[i].length; j++) {
       if (root.value[i][j] === "") {
         root.children.push(createChild(root, i, j, nturn, level));
       }
@@ -134,13 +133,20 @@ function playerPlays() {
   document.querySelectorAll(".cell").forEach((buttonCell, i) => {
     const row = i % 3;
     const column = parseInt(i / 3);
+
     if (board[column][row] === "") {
-      buttonCell.addEventListener("click", (e) => {
+      buttonCell.addEventListener("click", () => {
+
+        if (board[column][row] !== "") {
+          return;
+        }
+
         board[column][row] = "O";
-        buttonCell.textContent = board[column][row];
+        buttonCell.textContent = "O";
         turn = 1;
+
         const won = checkIfWinner();
-        debugger;
+
         if (won === "none") {
           PCPlaysV2();
         }
@@ -148,7 +154,6 @@ function playerPlays() {
     }
   });
 }
-
 function checkIfWinner() {
   const PCWon = [
     board[0][0] === "X" && board[1][1] === "X" && board[2][2] === "X",
@@ -172,13 +177,13 @@ function checkIfWinner() {
   ];
 
   if (PCWon.includes(true)) {
-    console.log("PC WON");
+    alert("¡La PC ha ganado!");
     return "pcwon";
-  }
+}
   if (playerWon.includes(true)) {
-    console.log("Player WON");
+    alert("¡El jugador ha ganado!");
     return "playerwon";
-  }
+}
   return "none";
 }
 function checkIfPCWinner(arr) {
